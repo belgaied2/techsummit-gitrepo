@@ -7,7 +7,7 @@ metadata:
     cni: external
     csi: external
   name: test-rk
-  namespace: ns-ixkjw
+  namespace: ns-l7977
 spec:
   controlPlaneRef:
     apiVersion: controlplane.cluster.x-k8s.io/v1alpha1
@@ -22,11 +22,11 @@ apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
 kind: HarvesterCluster
 metadata:
   name: test-rk-hv
-  namespace: ns-ixkjw
+  namespace: ns-l7977
 spec:
   identitySecret:
     name: hv-identity-secret
-    namespace: ns-ixkjw
+    namespace: ns-l7977
   loadBalancerConfig:
     ipPoolRef: pool-1
     ipamType: pool
@@ -36,7 +36,7 @@ spec:
       port: 9345
       protocol: TCP
   server: https://147.28.184.29:6443
-  targetNamespace: ns-ixkjw
+  targetNamespace: ns-l7977
 ---
 apiVersion: v1
 data:
@@ -44,13 +44,13 @@ data:
 kind: Secret
 metadata:
   name: hv-identity-secret
-  namespace: ns-ixkjw
+  namespace: ns-l7977
 ---
 apiVersion: controlplane.cluster.x-k8s.io/v1alpha1
 kind: RKE2ControlPlane
 metadata:
   name: test-rk-control-plane
-  namespace: ns-ixkjw
+  namespace: ns-l7977
 spec:
   agentConfig:
     version: v1.26.6+rke2r1
@@ -58,7 +58,7 @@ spec:
     apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
     kind: HarvesterMachineTemplate
     name: test-rk-cp-machine
-    namespace: ns-ixkjw
+    namespace: ns-l7977
   replicas: 3
   serverConfig:
     cloudProviderName: external
@@ -68,7 +68,7 @@ apiVersion: bootstrap.cluster.x-k8s.io/v1alpha1
 kind: RKE2ConfigTemplate
 metadata:
   name: test-rk-worker
-  namespace: ns-ixkjw
+  namespace: ns-l7977
 spec:
   template:
     spec:
@@ -79,7 +79,7 @@ apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachineDeployment
 metadata:
   name: test-rk-workers
-  namespace: ns-ixkjw
+  namespace: ns-l7977
 spec:
   clusterName: test-rk
   replicas: 2
@@ -93,20 +93,20 @@ spec:
           apiVersion: bootstrap.cluster.x-k8s.io/v1alpha1
           kind: RKE2ConfigTemplate
           name: test-rk-worker
-          namespace: ns-ixkjw
+          namespace: ns-l7977
       clusterName: test-rk
       infrastructureRef:
         apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
         kind: HarvesterMachineTemplate
         name: test-rk-wk-machine
-        namespace: ns-ixkjw
+        namespace: ns-l7977
       version: v1.26.6
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
 kind: HarvesterMachineTemplate
 metadata:
   name: test-rk-wk-machine
-  namespace: ns-ixkjw
+  namespace: ns-l7977
 spec:
   template:
     spec:
@@ -126,7 +126,7 @@ apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
 kind: HarvesterMachineTemplate
 metadata:
   name: test-rk-cp-machine
-  namespace: ns-ixkjw
+  namespace: ns-l7977
 spec:
   template:
     spec:
@@ -146,7 +146,7 @@ apiVersion: addons.cluster.x-k8s.io/v1beta1
 kind: ClusterResourceSet
 metadata:
   name: crs-harvester-ccm
-  namespace: ns-ixkjw
+  namespace: ns-l7977
 spec:
   clusterSelector:
     matchLabels:
@@ -160,7 +160,7 @@ apiVersion: addons.cluster.x-k8s.io/v1beta1
 kind: ClusterResourceSet
 metadata:
   name: crs-harvester-csi
-  namespace: ns-ixkjw
+  namespace: ns-l7977
 spec:
   clusterSelector:
     matchLabels:
@@ -174,7 +174,7 @@ apiVersion: addons.cluster.x-k8s.io/v1beta1
 kind: ClusterResourceSet
 metadata:
   name: crs-calico-chart-config
-  namespace: ns-ixkjw
+  namespace: ns-l7977
 spec:
   clusterSelector:
     matchLabels:
@@ -445,7 +445,7 @@ data:
 kind: ConfigMap
 metadata:
   name: cloud-controller-manager-addon
-  namespace: ns-ixkjw
+  namespace: ns-l7977
 ---
 apiVersion: v1
 data:
@@ -563,11 +563,11 @@ data:
       namespace: kube-system
     type: Opaque
     data:
-      cloud-config: YXBpVmVyc2lvbjogdjEKY2x1c3RlcnM6Ci0gY2x1c3RlcjoKICAgIGNlcnRpZmljYXRlLWF1dGhvcml0eS1kYXRhOiBMUzB0TFMxQ1JVZEpUaUJEUlZKVVNVWkpRMEZVUlMwdExTMHRDazFKU1VKbFZFTkRRVklyWjBGM1NVSkJaMGxDUVVSQlMwSm5aM0ZvYTJwUFVGRlJSRUZxUVd0TlUwbDNTVUZaUkZaUlVVUkVRbXg1WVRKVmVVeFlUbXdLWTI1YWJHTnBNV3BaVlVGNFRucEpNazFFV1RGUFJFRTBUVUkwV0VSVVNUQk5SR3Q0VFZSRk1FNUVUWGxQUm05WVJGUk5NRTFFYTNkUFZFVXdUa1JOZVFwUFJtOTNTa1JGYVUxRFFVZEJNVlZGUVhkM1dtTnRkR3hOYVRGNldsaEtNbHBZU1hSWk1rWkJUVlJqZVU1cVFUSk9WR2QzVDBSQ1drMUNUVWRDZVhGSENsTk5ORGxCWjBWSFEwTnhSMU5OTkRsQmQwVklRVEJKUVVKR1NsQXpSVlF5VWxoR2JWcDBSa2xSU0ZrMWMyVlNaRmx2ZDFoVFdGbDRRMGgwWjFWcmRXNEtaVWRWTVU1SmFuRXJlWFpFWTI5RldIRlBSRnAzYWtGRFdVNUhWbEJZVG1FME9IZE1VMjltVFhNNVVWZDZWRU5xVVdwQ1FVMUJORWRCTVZWa1JIZEZRZ292ZDFGRlFYZEpRM0JFUVZCQ1owNVdTRkpOUWtGbU9FVkNWRUZFUVZGSUwwMUNNRWRCTVZWa1JHZFJWMEpDVXpBeWJqbDNTMnBwVGsxaVNWSnpaRWRuQ21KaGRIWmlTSEJTYUVSQlMwSm5aM0ZvYTJwUFVGRlJSRUZuVGtsQlJFSkdRV2xGUVM5eVpIRjZibEZNZFhGWGVYQXdMMFpUZWtvMGQyMXNWMDB4UkcwS05EQk5TV3RyYzJOc2RWcEpiRVJKUTBsR2RrZEpRVU4yYzB4blQxbGhkVUZ6TlZWcWFuQlRNMHN6SzNGS2MyMDBUMDFuWmt0b2RYbEVXRkpyQ2kwdExTMHRSVTVFSUVORlVsUkpSa2xEUVZSRkxTMHRMUzBLCiAgICBzZXJ2ZXI6IGh0dHBzOi8vMTQ3LjI4LjE4NC4yOTo2NDQzCiAgbmFtZTogZGVmYXVsdApjb250ZXh0czoKLSBjb250ZXh0OgogICAgY2x1c3RlcjogZGVmYXVsdAogICAgbmFtZXNwYWNlOiBucy1peGtqdwogICAgdXNlcjogY2xvdWQtcHJvdmlkZXItbnMtaXhranctbnMtaXhranctZGVmYXVsdAogIG5hbWU6IGNsb3VkLXByb3ZpZGVyLW5zLWl4a2p3LW5zLWl4a2p3LWRlZmF1bHQKY3VycmVudC1jb250ZXh0OiBjbG91ZC1wcm92aWRlci1ucy1peGtqdy1ucy1peGtqdy1kZWZhdWx0CmtpbmQ6IENvbmZpZwpwcmVmZXJlbmNlczoge30KdXNlcnM6Ci0gbmFtZTogY2xvdWQtcHJvdmlkZXItbnMtaXhranctbnMtaXhranctZGVmYXVsdAogIHVzZXI6CiAgICB0b2tlbjogZXlKaGJHY2lPaUpTVXpJMU5pSXNJbXRwWkNJNklsOVlVMmxPVGpWM05WaE9hbGwzVjNBeldISXlabWxvY0RWMFNIaHZZelpmYjB4VlNqaFRaMjlvWVZFaWZRLmV5SnBjM01pT2lKcmRXSmxjbTVsZEdWekwzTmxjblpwWTJWaFkyTnZkVzUwSWl3aWEzVmlaWEp1WlhSbGN5NXBieTl6WlhKMmFXTmxZV05qYjNWdWRDOXVZVzFsYzNCaFkyVWlPaUp1Y3kxcGVHdHFkeUlzSW10MVltVnlibVYwWlhNdWFXOHZjMlZ5ZG1salpXRmpZMjkxYm5RdmMyVmpjbVYwTG01aGJXVWlPaUpqYkc5MVpDMXdjbTkyYVdSbGNpMXVjeTFwZUd0cWR5MTBiMnRsYmlJc0ltdDFZbVZ5Ym1WMFpYTXVhVzh2YzJWeWRtbGpaV0ZqWTI5MWJuUXZjMlZ5ZG1salpTMWhZMk52ZFc1MExtNWhiV1VpT2lKamJHOTFaQzF3Y205MmFXUmxjaTF1Y3kxcGVHdHFkeUlzSW10MVltVnlibVYwWlhNdWFXOHZjMlZ5ZG1salpXRmpZMjkxYm5RdmMyVnlkbWxqWlMxaFkyTnZkVzUwTG5WcFpDSTZJalUyT1RjMVpXSTFMVFkzTVRrdE5EUXdOUzFpTkRFMExXUXhZamxtTTJabFlqazBaaUlzSW5OMVlpSTZJbk41YzNSbGJUcHpaWEoyYVdObFlXTmpiM1Z1ZERwdWN5MXBlR3RxZHpwamJHOTFaQzF3Y205MmFXUmxjaTF1Y3kxcGVHdHFkeUo5Lks3cWVjajg3VGptckJ3Rlo3U2VYS003VnhZWGdLRmhZcE1pajVIb1pCaVRwWDVoUHNGa0hRa0t3alhUMWpOOUs4VDU3Ymg2ejB4MzVpY1J3YjJsWEdDdVhjcnZ5cm5feFJ1SjZvWTNVaWdtNTB6RUJFdk9pMXg5anFzdHZJeGlsN3Z1TFBVUW5JOTRtQkJUODZvTzJaNkpvaXlaT1oyZUpxSmdTTkV5MVlZSklQLUd6dVFTc3FVb3l2LW53UjBVeC1yc19PVkZWckV5TmcwWWxUbEVkWTB6d0czMEZGSmlPX0FHNHFXWjM1azhDc1JWZXZJTDFQUkVRbTU5VXdGTWd2SXZTOTVZQ3hOOW5Dam42M3AxbHBmV3hVVVVfYzhFRUdvdVlpTTNKRUdkV3UxT2VZV2J2Y0RxaU54S3h2dFRxRklScGFLTnJjTmdjWE1TTHNzVVBtQQo=
+      cloud-config: YXBpVmVyc2lvbjogdjEKY2x1c3RlcnM6Ci0gY2x1c3RlcjoKICAgIGNlcnRpZmljYXRlLWF1dGhvcml0eS1kYXRhOiBMUzB0TFMxQ1JVZEpUaUJEUlZKVVNVWkpRMEZVUlMwdExTMHRDazFKU1VKbFZFTkRRVklyWjBGM1NVSkJaMGxDUVVSQlMwSm5aM0ZvYTJwUFVGRlJSRUZxUVd0TlUwbDNTVUZaUkZaUlVVUkVRbXg1WVRKVmVVeFlUbXdLWTI1YWJHTnBNV3BaVlVGNFRucEpNazFFV1RGUFJFRTBUVUkwV0VSVVNUQk5SR3Q0VFZSRk1FNUVUWGxQUm05WVJGUk5NRTFFYTNkUFZFVXdUa1JOZVFwUFJtOTNTa1JGYVUxRFFVZEJNVlZGUVhkM1dtTnRkR3hOYVRGNldsaEtNbHBZU1hSWk1rWkJUVlJqZVU1cVFUSk9WR2QzVDBSQ1drMUNUVWRDZVhGSENsTk5ORGxCWjBWSFEwTnhSMU5OTkRsQmQwVklRVEJKUVVKR1NsQXpSVlF5VWxoR2JWcDBSa2xSU0ZrMWMyVlNaRmx2ZDFoVFdGbDRRMGgwWjFWcmRXNEtaVWRWTVU1SmFuRXJlWFpFWTI5RldIRlBSRnAzYWtGRFdVNUhWbEJZVG1FME9IZE1VMjltVFhNNVVWZDZWRU5xVVdwQ1FVMUJORWRCTVZWa1JIZEZRZ292ZDFGRlFYZEpRM0JFUVZCQ1owNVdTRkpOUWtGbU9FVkNWRUZFUVZGSUwwMUNNRWRCTVZWa1JHZFJWMEpDVXpBeWJqbDNTMnBwVGsxaVNWSnpaRWRuQ21KaGRIWmlTSEJTYUVSQlMwSm5aM0ZvYTJwUFVGRlJSRUZuVGtsQlJFSkdRV2xGUVM5eVpIRjZibEZNZFhGWGVYQXdMMFpUZWtvMGQyMXNWMDB4UkcwS05EQk5TV3RyYzJOc2RWcEpiRVJKUTBsR2RrZEpRVU4yYzB4blQxbGhkVUZ6TlZWcWFuQlRNMHN6SzNGS2MyMDBUMDFuWmt0b2RYbEVXRkpyQ2kwdExTMHRSVTVFSUVORlVsUkpSa2xEUVZSRkxTMHRMUzBLCiAgICBzZXJ2ZXI6IGh0dHBzOi8vMTQ3LjI4LjE4NC4yOTo2NDQzCiAgbmFtZTogZGVmYXVsdApjb250ZXh0czoKLSBjb250ZXh0OgogICAgY2x1c3RlcjogZGVmYXVsdAogICAgbmFtZXNwYWNlOiBucy1sNzk3NwogICAgdXNlcjogY2xvdWQtcHJvdmlkZXItbnMtbDc5NzctbnMtbDc5NzctZGVmYXVsdAogIG5hbWU6IGNsb3VkLXByb3ZpZGVyLW5zLWw3OTc3LW5zLWw3OTc3LWRlZmF1bHQKY3VycmVudC1jb250ZXh0OiBjbG91ZC1wcm92aWRlci1ucy1sNzk3Ny1ucy1sNzk3Ny1kZWZhdWx0CmtpbmQ6IENvbmZpZwpwcmVmZXJlbmNlczoge30KdXNlcnM6Ci0gbmFtZTogY2xvdWQtcHJvdmlkZXItbnMtbDc5NzctbnMtbDc5NzctZGVmYXVsdAogIHVzZXI6CiAgICB0b2tlbjogZXlKaGJHY2lPaUpTVXpJMU5pSXNJbXRwWkNJNklsOVlVMmxPVGpWM05WaE9hbGwzVjNBeldISXlabWxvY0RWMFNIaHZZelpmYjB4VlNqaFRaMjlvWVZFaWZRLmV5SnBjM01pT2lKcmRXSmxjbTVsZEdWekwzTmxjblpwWTJWaFkyTnZkVzUwSWl3aWEzVmlaWEp1WlhSbGN5NXBieTl6WlhKMmFXTmxZV05qYjNWdWRDOXVZVzFsYzNCaFkyVWlPaUp1Y3kxc056azNOeUlzSW10MVltVnlibVYwWlhNdWFXOHZjMlZ5ZG1salpXRmpZMjkxYm5RdmMyVmpjbVYwTG01aGJXVWlPaUpqYkc5MVpDMXdjbTkyYVdSbGNpMXVjeTFzTnprM055MTBiMnRsYmlJc0ltdDFZbVZ5Ym1WMFpYTXVhVzh2YzJWeWRtbGpaV0ZqWTI5MWJuUXZjMlZ5ZG1salpTMWhZMk52ZFc1MExtNWhiV1VpT2lKamJHOTFaQzF3Y205MmFXUmxjaTF1Y3kxc056azNOeUlzSW10MVltVnlibVYwWlhNdWFXOHZjMlZ5ZG1salpXRmpZMjkxYm5RdmMyVnlkbWxqWlMxaFkyTnZkVzUwTG5WcFpDSTZJalZsWVRCbU9USXlMV1kzWVRFdE5HVmlOQzFpTnpFNExURTNNMlprWmpabFpqTm1ZaUlzSW5OMVlpSTZJbk41YzNSbGJUcHpaWEoyYVdObFlXTmpiM1Z1ZERwdWN5MXNOemszTnpwamJHOTFaQzF3Y205MmFXUmxjaTF1Y3kxc056azNOeUo5LmY0YnFOSm5ZUGhLdy1POEJ3dFhhalRkVUttNkQ2a2lTTjNqUnZKUndHQ3UxdzEyME1rcjZLZkg2SzNYbS1uVEFTS2lnYTBpd3BZdFpfb1A0VURyZU54M09VRDhWaFJBUWRabjRYM2F0bkVJVnRCZXB6WXdOaU9Gb3hON3Z3aDZWY3BhZVhtamRoa3NKemsybzJydlpIUU9uTVlMcU9VR1hveG96Y1BpVnd4cmY2STRJaWY5NHFrTlRZMVBDSDJEd3Y4ekFpMTNDZS1MWlYtR2VLVTB1Zy1fMHRNNXMwM1FUQUZmcjFha0xkWFRxazU1bDlLWW1fcE9teXpTbUd0OGxyNldYTnJBdU5EbElBWHNreFhkS3NYVjR2SGhoSklzYmNIWXFMMlFBNXBZeG1Bdmdxa09xaVNDN25TWTZrSkNDOEE4RmZBS2U4R05yZzZ5UXVDSmdmZwo=
 kind: ConfigMap
 metadata:
   name: harvester-csi-driver-addon
-  namespace: ns-ixkjw
+  namespace: ns-l7977
 ---
 apiVersion: v1
 data:
@@ -594,4 +594,4 @@ data:
 kind: ConfigMap
 metadata:
   name: calico-helm-config
-  namespace: ns-ixkjw
+  namespace: ns-l7977
